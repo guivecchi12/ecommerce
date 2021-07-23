@@ -1,0 +1,19 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "Ecommerce backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "express-session": "^1.17.2",
+    "knex": "^0.95.7",
+    "node": "^16.5.0",
+    "nodemon": "^2.0.12",
+    "sqlite3": "^5.0.2"
+  }
+}
