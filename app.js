@@ -15,4 +15,4 @@ app.use('/inventory', inventory);
 app.use('/order', order);
 app.use('/paid', paid);
 
-module.exports = app;
+module.exports = app
