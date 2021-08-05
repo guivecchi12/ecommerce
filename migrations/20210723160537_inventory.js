@@ -6,7 +6,7 @@ exports.up = function(knex) {
             .notNullable()
         tbl.integer('quantity')
             .unsigned()
-            .notNullable()
+            .defaultTo(0)
   })
 };
 
