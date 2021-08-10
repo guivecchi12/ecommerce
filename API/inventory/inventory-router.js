@@ -14,7 +14,7 @@ router.get('/', async(req, res) => {
         return res.status(200).json(inventory)
     }
     catch(err){
-        return res.status(500).json({ message: err.message })
+        return errorMessage(res, 500, err.message)
     }
 })
 
@@ -25,40 +25,38 @@ router.get('/:search', async(req, res) => {
         if(!inv){
             inv = await invModel.findProdByName(req.params.search)
             if(!inv){
-                return res.status(400).json({ message: "This product does not exist"})
+                return errorMessage(res, 400, "This product does not exist")
             }
         }
         return res.status(200).json(inv)
     }
     catch(err){
-        return res.status(500).json({ message: err.message })
+        return errorMessage(res, 500, err.message)
     }
 })
 
 // Add new Product
 router.post('/', async(req,res) => {
     try{
+
         const newProd = req.body;
         if(!newProd.name || newProd.name.trim() === ''){
-            return res.status(400).json({
-                message: "Product name is required"
-            })
+            return errorMessage(res, 400, "Product name is required")
         }
-        const prodExists = await invModel.findProdByName(newProd.name)
+
+        const prodExists = await invModel.findName(newProd.name)
         if(prodExists){
-            return res.status(400).json({
-                message: 'This product already exists would you like to add stock instead?',
-                product: prodExists
-            })
+            // return errorMessage(res, 400, 'This product already exists would you like to add stock instead?')    
+            return res.status(200).json({message: 'already exists', product: prodExists})
         }
 
         await invModel.addProduct(newProd)
         const response = await invModel.listInv()
+        
         return res.status(201).json(response)
-
     }
     catch(err){
-        return res.status(500).json({ message: err.message })
+        return errorMessage(res, 500, err.message)
     }
 })
 
@@ -87,5 +85,24 @@ router.put('/:sku', async(req,res) => {
 })
 
 // Delete Product
+router.delete('/:sku', async(req, res) => {
+    try{
+        const sku = req.params.sku
+        const removed = await invModel.findSKU(sku)
+
+        if(!removed){
+            return errorMessage(res, 401, "Product not found")
+        }
+
+        await invModel.deleteProduct(sku)
+        return res.status(200).json({
+            message: 'Product successfully removed',
+            product: removed
+        })
+    }
+    catch(err){
+        return errorMessage(res, 500, err.message)
+    }
+})
 
 module.exports = router

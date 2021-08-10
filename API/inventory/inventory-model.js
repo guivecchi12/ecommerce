@@ -23,11 +23,18 @@ function findProdByName(name){
         .select('*');
 }
 
+// Check for existing name
+function findName(name){
+    return db(table)
+        .where('name', name)
+        .first();
+}
+
 // Add new Product
 function addProduct(prod){
     return db(table)
         .insert(prod)
-        .returning('*')
+        .returning('*');
 }
 
 // Update Inventory
@@ -36,15 +43,23 @@ function updateProduct(prod, changes){
         .where('sku', prod)
         .first()
         .update(changes)
-        .returning('*')
+        .returning('*');
 }
 
 // Delete Product
+function deleteProduct(prod){
+    return db(table)
+        .where({sku: prod})
+        .first()
+        .del();
+}
 
 module.exports = {
     listInv,
     findSKU,
     findProdByName,
+    findName,
     addProduct,
-    updateProduct
+    updateProduct,
+    deleteProduct
 }

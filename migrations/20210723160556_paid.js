@@ -2,6 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('paid', tbl => {
         tbl.increments('id')
+
         tbl.integer('order_number')
             .unsigned()
             .notNullable()
@@ -9,6 +10,11 @@ exports.up = function(knex) {
             .inTable('order')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
+        
+        tbl.integer('totalCost')
+            .unsigned()
+            .notNullable()
+
         tbl.boolean('paid')
             .defaultTo(false)
     })
