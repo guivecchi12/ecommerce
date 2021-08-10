@@ -18,7 +18,7 @@ function findSKU(sku){
 // Find by name
 function findProdByName(name){
     return db(table)
-        .where({name: name})
+        .whereRaw('LOWER(name) LIKE ?', [`%${name}%`])
         // .first()
         .select('*');
 }
@@ -31,11 +31,20 @@ function addProduct(prod){
 }
 
 // Update Inventory
+function updateProduct(prod, changes){
+    return db(table)
+        .where('sku', prod)
+        .first()
+        .update(changes)
+        .returning('*')
+}
+
 // Delete Product
 
 module.exports = {
     listInv,
     findSKU,
     findProdByName,
-    addProduct
+    addProduct,
+    updateProduct
 }

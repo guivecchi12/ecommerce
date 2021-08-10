@@ -2,6 +2,10 @@ const express = require('express')
 const router = express.Router()
 const invModel = require('./inventory-model')
 
+const errorMessage = (res, status, message) =>{
+    return res.status(status).json({ message: message })
+} 
+
 // List all inventory
 router.get('/', async(req, res) => {
     try{
@@ -15,11 +19,14 @@ router.get('/', async(req, res) => {
 })
 
 // Find Inventory by name/sku
-router.get('/:sku', async(req, res) => {
+router.get('/:search', async(req, res) => {
     try{
-        const inv = await invModel.findSKU(req.params.sku)
+        let inv = await invModel.findSKU(req.params.search)
         if(!inv){
-            return res.status(400).json({ message: "This product does not exist"})
+            inv = await invModel.findProdByName(req.params.search)
+            if(!inv){
+                return res.status(400).json({ message: "This product does not exist"})
+            }
         }
         return res.status(200).json(inv)
     }
@@ -55,7 +62,30 @@ router.post('/', async(req,res) => {
     }
 })
 
-// Update Inventory
+// Update Product
+router.put('/:sku', async(req,res) => {
+    try{
+        const sku = req.params.sku
+        const body = req.body
+        const exist = await invModel.findSKU(sku)
+
+        if(!exist){
+            return errorMessage(res, 401, "task not found")
+        }
+        else if(!body){
+            return errorMessage(res, 400, "No changes made")
+        }
+
+        await invModel.updateProduct(sku, body)
+        const updated = await invModel.findSKU(sku)
+
+        return res.status(200).json(updated)
+    }
+    catch(err){
+        return errorMessage(res, 500, err.message)
+    }
+})
+
 // Delete Product
 
 module.exports = router
