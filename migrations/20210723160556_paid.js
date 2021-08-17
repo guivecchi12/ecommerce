@@ -3,20 +3,18 @@ exports.up = function(knex) {
     return knex.schema.createTable('paid', tbl => {
         tbl.increments('id')
 
-        tbl.integer('order_number')
-            .unsigned()
+        tbl.integer('order')
             .notNullable()
             .references('order_number')
             .inTable('order')
-            .onUpdate('CASCADE')
-            .onDelete('CASCADE')
+            .onDelete('cascade');
         
-        tbl.integer('totalCost')
+        tbl.integer('total_cost')
             .unsigned()
             .notNullable()
 
         tbl.boolean('paid')
-            .defaultTo(false)
+            .defaultTo(0)
     })
 };
 

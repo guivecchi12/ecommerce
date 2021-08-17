@@ -13,6 +13,8 @@ exports.up = function(knex) {
         tbl.integer('value')
             .unsigned()
             .notNullable()
+        
+        tbl.string('image')
   })
 };
 

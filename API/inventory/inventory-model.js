@@ -49,9 +49,9 @@ function updateProduct(prod, changes){
 // Delete Product
 function deleteProduct(prod){
     return db(table)
-        .where({sku: prod})
-        .first()
-        .del();
+        .where('sku', prod)
+        .del()
+        .returning('*')
 }
 
 module.exports = {

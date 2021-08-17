@@ -7,6 +7,9 @@ module.exports = {
     connection: {
       filename: './data/ecommerce.db3'
     },
+    seeds:{
+      directory:'./seeds'
+    },
     pool: {
         afterCreate: (conn, done) => {
             conn.run("PRAGMA foreign_keys = ON", done)

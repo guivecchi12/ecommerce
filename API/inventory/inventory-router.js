@@ -90,15 +90,21 @@ router.delete('/:sku', async(req, res) => {
         const sku = req.params.sku
         const removed = await invModel.findSKU(sku)
 
+        console.log(removed);
+
         if(!removed){
             return errorMessage(res, 401, "Product not found")
         }
 
-        await invModel.deleteProduct(sku)
-        return res.status(200).json({
-            message: 'Product successfully removed',
-            product: removed
-        })
+        else{
+            console.log(sku)
+            const r = await invModel.deleteProduct(sku)
+            console.log(r)
+            return res.status(200).json({
+                message: 'Product successfully removed',
+                product: removed
+            })
+        }
     }
     catch(err){
         return errorMessage(res, 500, err.message)

@@ -7,8 +7,7 @@ exports.up = function(knex) {
             .unsigned()
             .notNullable()
         
-        tbl.date('date')
-            .defaultTo(Date.now())
+        tbl.timestamps(true,true)
 
         tbl.integer('inventory_sku')
             .unsigned()
