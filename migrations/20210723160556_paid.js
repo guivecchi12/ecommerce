@@ -3,10 +3,10 @@ exports.up = function(knex) {
     return knex.schema.createTable('paid', tbl => {
         tbl.increments('id')
 
-        tbl.integer('order')
+        tbl.integer('customer')
             .notNullable()
-            .references('order_number')
-            .inTable('order')
+            .references('id')
+            .inTable('customer')
             .onDelete('cascade');
         
         tbl.integer('total_cost')

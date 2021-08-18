@@ -1,6 +1,6 @@
 const orders_paid = [
-    {order_number: 1, total_cost: 160.99, paid: true},
-    {order_number: 2, total_cost: 750.00},
+    {customer: 1, total_cost: 160.99, paid: true},
+    {customer: 2, total_cost: 750.00},
   ]
   exports.seed = function(knex) {
     // Deletes ALL existing entries

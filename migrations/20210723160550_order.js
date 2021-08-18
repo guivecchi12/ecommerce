@@ -3,9 +3,12 @@ exports.up = function(knex) {
     return knex.schema.createTable('order', tbl =>{
         tbl.increments('id')
         
-        tbl.integer('order_number')
-            .unsigned()
+        tbl.integer('customer')
             .notNullable()
+            .references('id')
+            .inTable('customer')
+            .onUpdate('CASCADE')
+            .onDelete('CASCADE')
         
         tbl.timestamps(true,true)
 
