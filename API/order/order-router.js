@@ -21,8 +21,8 @@ router.post('/', async(req,res) => {
     try{
 
         const newOrder = req.body;
-        if(!newOrder.order_number){
-            return errorMessage(res, 400, "Order number is required")
+        if(!newOrder.customer){
+            return errorMessage(res, 400, "Customer ID is required")
         }
         if(!newOrder.inventory_sku){
             return errorMessage(res, 400, "Purchasing SKU needed")
