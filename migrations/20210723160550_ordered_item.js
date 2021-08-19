@@ -1,12 +1,12 @@
 
 exports.up = function(knex) {
-    return knex.schema.createTable('order', tbl =>{
+    return knex.schema.createTable('ordered_item', tbl =>{
         tbl.increments('id')
         
-        tbl.integer('customer')
+        tbl.integer('order')
             .notNullable()
             .references('id')
-            .inTable('customer')
+            .inTable('order')
             .onUpdate('CASCADE')
             .onDelete('CASCADE')
         
@@ -27,5 +27,5 @@ exports.up = function(knex) {
 };
 
 exports.down = function(knex) {
-    return knex.schema.dropTableIfExists('order')
+    return knex.schema.dropTableIfExists('order_item')
 };

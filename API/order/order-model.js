@@ -7,6 +7,10 @@ function listOrders(){
         .select('*');
 }
 
+// List paid Orders
+
+// List not paid Orders
+
 // Add new Product
 function addOrder(order){
     return db(table)

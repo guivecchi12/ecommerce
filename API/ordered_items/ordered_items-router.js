@@ -1,14 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const paidModel = require('./paid-model.js');
+const orderModel = require('./order-model.js');
 
 const errorMessage = (res, status, message) =>{
     return res.status(status).json({ message: message })
-}
-
+} 
 router.get('/', async(req, res) => {
     try{
-        const orders = await paidModel.listPaid()
+        const orders = await orderModel.listOrders()
         console.log(orders)
         return res.status(200).json(orders)
     }
@@ -21,12 +20,15 @@ router.get('/', async(req, res) => {
 router.post('/', async(req,res) => {
     try{
 
-        const newPaid = req.body;
-        if(!newPaid.customer){
+        const newOrder = req.body;
+        if(!newOrder.customer){
             return errorMessage(res, 400, "Customer ID is required")
         }
-        if(!newPaid.total_cost){
+        if(!newOrder.inventory_sku){
             return errorMessage(res, 400, "Purchasing SKU needed")
+        }
+        if(!newOrder.quantity_ordered){
+            return errorMessage(res, 400, "Quantity needed")
         }
 
 
@@ -36,8 +38,8 @@ router.post('/', async(req,res) => {
         //     return res.status(200).json({message: 'already exists', product: prodExists})
         // }
 
-        await paidModel.addPaid(newPaid)
-        const response = await paidModel.listPaid()
+        await orderModel.addOrder(newOrder)
+        const response = await orderModel.listOrders()
         
         return res.status(201).json(response)
     }
