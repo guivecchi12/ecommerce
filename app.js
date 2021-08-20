@@ -5,7 +5,7 @@ const db = require('./data/configs');
 
 const inventory = require('./API/inventory/inventory-router');
 const order = require('./API/order/order-router');
-const paid = require('./API/paid/paid-router');
+const items = require('./API/ordered_items/ordered_items-router');
 
 const app = express();
 
@@ -13,6 +13,6 @@ app.use(express.json());
 
 app.use('/inventory', inventory);
 app.use('/order', order);
-app.use('/paid', paid);
+app.use('/items', items);
 
 module.exports = app

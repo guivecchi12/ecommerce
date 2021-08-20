@@ -1,13 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const orderModel = require('./order-model.js');
+const orderModel = require('./ordered_items-model');
 
 const errorMessage = (res, status, message) =>{
     return res.status(status).json({ message: message })
 } 
 router.get('/', async(req, res) => {
     try{
-        const orders = await orderModel.listOrders()
+        const orders = await orderModel.listOrderedItems()
         console.log(orders)
         return res.status(200).json(orders)
     }
@@ -21,8 +21,8 @@ router.post('/', async(req,res) => {
     try{
 
         const newOrder = req.body;
-        if(!newOrder.customer){
-            return errorMessage(res, 400, "Customer ID is required")
+        if(!newOrder.order){
+            return errorMessage(res, 400, "Order ID is required")
         }
         if(!newOrder.inventory_sku){
             return errorMessage(res, 400, "Purchasing SKU needed")
@@ -38,8 +38,8 @@ router.post('/', async(req,res) => {
         //     return res.status(200).json({message: 'already exists', product: prodExists})
         // }
 
-        await orderModel.addOrder(newOrder)
-        const response = await orderModel.listOrders()
+        await orderModel.addOrderItem(newOrder)
+        const response = await orderModel.listOrderedItems()
         
         return res.status(201).json(response)
     }
