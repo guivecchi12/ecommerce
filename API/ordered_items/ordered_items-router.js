@@ -1,10 +1,8 @@
 const express = require('express')
 const router = express.Router()
 const orderModel = require('./ordered_items-model');
+const errorMessage = require('../errorMessage');
 
-const errorMessage = (res, status, message) =>{
-    return res.status(status).json({ message: message })
-} 
 router.get('/', async(req, res) => {
     try{
         const orders = await orderModel.listOrderedItems()

@@ -1,10 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const invModel = require('./inventory-model')
-
-const errorMessage = (res, status, message) =>{
-    return res.status(status).json({ message: message })
-} 
+const errorMessage = require('../errorMessage');
 
 // List all inventory
 router.get('/', async(req, res) => {

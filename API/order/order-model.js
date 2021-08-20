@@ -7,9 +7,27 @@ function listOrders(){
         .select('*');
 }
 
+// Find Order by Id
+function findOrder(id){
+    return db(table)
+        .where({id: id})
+        .first()
+        .select('*')
+}
+
 // List paid Orders
+function listPaid(){
+    return db(table)
+        .where("paid", 1)
+        .select('*')
+}
 
 // List not paid Orders
+function listNotPaid(){
+    return db(table)
+        .where("paid", 0)
+        .select('*')
+}
 
 // Add new Product
 function addOrder(order){
@@ -18,7 +36,28 @@ function addOrder(order){
         .returning('*');
 }
 
+// Update Order
+function update(id, order){
+    return db(table)
+        .where('id', id)
+        .update(order)
+        .returning('*')
+}
+
+// Delete Order
+function remove(id){
+    return db(table)
+        .where('id', id)
+        .delete()
+        .returning('*')
+}
+
 module.exports = {
     listOrders,
-    addOrder
+    findOrder,
+    listPaid,
+    listNotPaid,
+    addOrder,
+    update,
+    remove
 }

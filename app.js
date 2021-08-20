@@ -1,7 +1,7 @@
 const express = require('express');
-const session = require('express-session');
-const KnexSessionStore = require("connect-session-knex")(session);
-const db = require('./data/configs');
+// const session = require('express-session');
+// const KnexSessionStore = require("connect-session-knex")(session);
+// const db = require('./data/configs');
 
 const inventory = require('./API/inventory/inventory-router');
 const order = require('./API/order/order-router');
