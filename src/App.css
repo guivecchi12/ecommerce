@@ -1,0 +1,6 @@
+*{
+    margin: 0;
+    padding: 0;
+    --backgroundColor:rgb(243, 243, 234);
+    background-color:var(--backgroundColor);
+  }
