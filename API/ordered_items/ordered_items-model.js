@@ -7,14 +7,25 @@ function listOrderedItems(){
         .select('*');
 }
 
-// Add new Product
+// Add new Item
 function addOrderItem(item){
     return db(table)
         .insert(item)
         .returning('*');
 }
 
+// Update Item
+function updateItem(id, update){
+    return db(table)
+        .where({id, id}, update(update))
+        .select('*')
+
+}
+
+// Delete Item
+
 module.exports = {
     listOrderedItems,
-    addOrderItem
+    addOrderItem,
+    updateItem
 }
