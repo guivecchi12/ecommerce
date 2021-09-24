@@ -11,8 +11,8 @@ const app = express();
 
 app.use(express.json());
 
-app.use('/inventory', inventory);
-app.use('/order', order);
-app.use('/items', items);
+app.use('/api/inventory', inventory);
+app.use('/api/order', order);
+app.use('/api/items', items);
 
 module.exports = app

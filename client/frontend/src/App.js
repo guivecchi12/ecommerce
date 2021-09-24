@@ -1,10 +1,13 @@
-import './App.css';
-import TestAPI from './component/testAPI';
+import './CSS/App.css';
+// import TestAPI from './component/testAPI';
+import Header from './component/header';
+import LandingPage from './component/landingPage';
 
 function App() {
   return (
     <div className="App">
-      <TestAPI/>
+      <Header/>
+      {/* <LandingPage/> */}
     </div>
   );
 }
