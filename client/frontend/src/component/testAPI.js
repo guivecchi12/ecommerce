@@ -19,7 +19,7 @@ const TestAPI = () => {
 
     console.log(initialState)
     return(
-        <div>Hey API</div>
+        initialState
     )
 }
 
